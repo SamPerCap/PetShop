@@ -10,13 +10,34 @@ namespace Infrastructure.Static.Data.Repositories
         public static IEnumerable<Pet> Pets;
         public static int petID = 1;
 
+        public static IEnumerable<Owner> Owners;
+        public static int ownerID = 1;
+
         public static void DefaultData()
         {
+            var owner1 = new Owner()
+            {
+                ID = ownerID++,
+                Address = "El Greco",
+                Email = "owner1@gmail.com",
+                FirstName = "Owner",
+                LastName = "The First",
+                PhoneNumber = 654657575,
+            };
+            var owner2 = new Owner()
+            {
+                ID = ownerID++,
+                Address = "Ana María Matute",
+                Email = "2Owner@gmail.com",
+                FirstName = "Lucas",
+                LastName = "Sorn",
+                PhoneNumber = 392541094,
+            };
             var pet1 = new Pet()
             {
                 ID = petID++,
                 Birthday = new DateTime(2005, 4, 6),
-                OldOwner = "Jhon",
+                Owner = owner1,
                 SoldDate = new DateTime(2006, 4, 6),
                 Color = "White",
                 Race = "Yorkshire",
@@ -29,7 +50,7 @@ namespace Infrastructure.Static.Data.Repositories
                 Birthday = new DateTime(2015, 12, 25),
                 Color = "Red",
                 Race = "Cobra",
-                OldOwner = "Mike",
+                Owner = owner2,
                 SoldDate = new DateTime(2015,12,25),
                 Type = "Snake",
                 Price = 8507
@@ -40,7 +61,7 @@ namespace Infrastructure.Static.Data.Repositories
                 Birthday = new DateTime(0001, 5, 2),
                 Color = "White",
                 Race = "Silvan Elf",
-                OldOwner = "Thranduil",
+                Owner = owner1,
                 SoldDate = new DateTime(2017, 4, 16),
                 Type = "Elf",
                 Price = 10
@@ -49,7 +70,7 @@ namespace Infrastructure.Static.Data.Repositories
             {
                 ID = petID++,
                 Birthday = new DateTime(2018, 8, 25),
-                OldOwner = "Rolf",
+                Owner = owner2,
                 SoldDate = new DateTime(2018, 8, 26),
                 Color = "Black",
                 Race = "Pellucid Fly",
@@ -60,7 +81,7 @@ namespace Infrastructure.Static.Data.Repositories
             {
                 ID = petID++,
                 Birthday = new DateTime(1997, 3, 18),
-                OldOwner = "Susana",
+                Owner = owner1,
                 SoldDate = new DateTime(2016, 6, 20),
                 Color = "White",
                 Race = "Programmer",
@@ -70,6 +91,10 @@ namespace Infrastructure.Static.Data.Repositories
             Pets = new List<Pet>
             {
                 pet1,pet2,pet3,pet4,pet5
+            };
+            Owners = new List<Owner>
+            {
+                owner1,owner2
             };
         }
     }

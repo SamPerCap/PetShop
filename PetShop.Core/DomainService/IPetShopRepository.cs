@@ -10,7 +10,7 @@ namespace PetShop.Core.DomainService
         IEnumerable<Pet> ReadPets();
         Pet Update(Pet petUpdated);
         Pet CreatePet(Pet pet);
-        void RemovePet(int idSelection);
+        Pet RemovePet(int idSelection);
         IEnumerable<Pet> ReadByPrice();
         Pet ReadByType(string type);
         Pet ReadByID(int id);

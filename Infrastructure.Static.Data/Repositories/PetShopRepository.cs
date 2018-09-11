@@ -55,13 +55,14 @@ namespace Infrastructure.Static.Data.Repositories
             return FakeDB.Pets;
         }
 
-        public void RemovePet(int idSelection)
+        public Pet RemovePet(int idSelection)
         {
             FakeDB.petID = FakeDB.petID - 1;
             var petList = FakeDB.Pets.ToList();
             var pet2Remove = petList.FirstOrDefault(pet => pet.ID == idSelection);
             petList.Remove(pet2Remove);
             FakeDB.Pets = petList;
+            return pet2Remove;
         }
 
         public Pet Update(Pet petUpdated)
@@ -69,7 +70,7 @@ namespace Infrastructure.Static.Data.Repositories
             var petSave = this.ReadByID(petUpdated.ID);
             if (petSave != null)
             {
-                petSave.OldOwner = petUpdated.OldOwner;
+                petSave.Owner = petUpdated.Owner;
                 petSave.Price = petUpdated.Price;
                 petSave.SoldDate = petUpdated.SoldDate;
                 return petSave;

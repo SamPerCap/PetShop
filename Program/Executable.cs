@@ -19,7 +19,7 @@ namespace Program
             var serviceProvider = serviceCollection.BuildServiceProvider();
             var petService = serviceProvider.GetRequiredService<IPetShopService>();
             FakeDB.DefaultData();
-            new Program(petService);
+            //new Program(petService);
             
 
             Console.ReadLine();

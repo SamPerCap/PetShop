@@ -44,7 +44,7 @@ namespace PetShop.Core.ApplicationService.Services
         public List<Pet> GetAllPetsByType(string type)
         {
             var list = _petShopRepo.ReadPets();
-            var qC = list.Where(pet => pet.Type.Equals(type));
+            var qC = list.Where(pet => pet.Type.Equals(type));  
             qC.OrderBy(pt => pt.Type);
             return qC.ToList();
         }
@@ -55,7 +55,7 @@ namespace PetShop.Core.ApplicationService.Services
             return list.Take(5).ToList();
         }
 
-        public Pet NewPet(string type, string race, string color, DateTime birthday, int price, DateTime soldDate, string oldOwner)
+        public Pet NewPet(string type, string race, string color, DateTime birthday, int price, DateTime soldDate, Owner owner)
         {
             var newPet = new Pet()
             {
@@ -65,22 +65,22 @@ namespace PetShop.Core.ApplicationService.Services
                 Birthday = birthday,
                 Price = price,
                 SoldDate = soldDate,
-                OldOwner = oldOwner,
+                Owner = owner
             };
 
             return newPet;
         }
 
-        public void RemovePet(int idSelection)
+        public Pet RemovePet(int idSelection)
         {
 
-            _petShopRepo.RemovePet(idSelection);
+          return  _petShopRepo.RemovePet(idSelection);
         }
 
         public Pet UpdatePet(Pet petUpdated)
         {
             var pet = _petShopRepo.ReadByID(petUpdated.ID);
-            pet.OldOwner = petUpdated.OldOwner;
+            pet.Owner = petUpdated.Owner;
             pet.Price = petUpdated.Price;
             pet.SoldDate = petUpdated.SoldDate;
             return pet;
