@@ -42,7 +42,7 @@ namespace Infrastructure.Static.Data.Repositories
             var ownerList = FakeDB.Owners.ToList();
             var owner2Remove = ownerList.FirstOrDefault(owner => owner.ID == idOwner);
             ownerList.Remove(owner2Remove);
-            FakeDB.Owners = ownerList;
+            FakeDB.Owners = ownerList.ToList();
             return owner2Remove;
         }
 

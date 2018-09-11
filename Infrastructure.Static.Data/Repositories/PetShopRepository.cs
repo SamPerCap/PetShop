@@ -15,7 +15,7 @@ namespace Infrastructure.Static.Data.Repositories
             pet.ID = FakeDB.petID++;
             var petList = FakeDB.Pets.ToList();
             petList.Add(pet);
-            FakeDB.Pets = petList;
+            FakeDB.Pets = petList.ToList();
             return pet;
 
         }
