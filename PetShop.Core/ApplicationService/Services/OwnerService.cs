@@ -7,7 +7,7 @@ using PetShop.Core.Entity;
 
 namespace PetShop.Core.ApplicationService.Services
 {
-    class OwnerService : IOwnerService
+    public class OwnerService : IOwnerService
     {
         private readonly IOwnerRepository _ownerRepo;
 

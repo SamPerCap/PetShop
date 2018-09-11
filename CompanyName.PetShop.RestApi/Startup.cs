@@ -32,6 +32,8 @@ namespace CompanyName.PetShop.RestApi
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddScoped<IPetShopService, PetShopService>();
             services.AddScoped<IPetShopRepository, PetShopRepository>();
+            services.AddScoped<IOwnerService, OwnerService>();
+            services.AddScoped<IOwnerRepository, OwnerRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
