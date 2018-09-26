@@ -13,21 +13,21 @@ namespace Infrastructure.Data
             ctx.Database.EnsureCreated();
             var owner1 = ctx.Owners.Add(new Owner()
             {
-                Address = "El Greco",
-                Email = "owner1@gmail.com",
-                FirstName = "Owner",
-                LastName = "The First",
-                PhoneNumber = 654657575
+            FirstName = "Susana",
+            LastName = "Caparros",
+            Address = "MyHeart<3",
+            PhoneNumber = 060606060,
+            Email = "fuckMySon@gmail.com"
             }).Entity;
             var pet1 = ctx.Pets.Add(new Pet()
             {
-                Birthday = new DateTime(2005, 4, 6),
+                Birthday = new DateTime(1997, 3, 18),
                 Owner = owner1,
-                SoldDate = new DateTime(2005, 6, 7),
+                SoldDate = new DateTime(2016, 8, 26),
                 Color = "White",
-                Race = "Yorkshire",
-                Type = "Dog",
-                Price = 4450
+                Race = "Programmer",
+                Type = "Student",
+                Price = -4450
             }).Entity;
 
             ctx.SaveChanges();

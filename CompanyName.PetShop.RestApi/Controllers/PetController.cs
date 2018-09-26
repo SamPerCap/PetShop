@@ -22,6 +22,10 @@ namespace CompanyName.PetShop.RestApi.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Pet>> Get([FromQuery] Filter filter)
         {
+            if(filter.CurrentPage == 0 && filter.ItemsPrPage == 0)
+            {
+                return Ok(_petService.GetAllPets());
+            } 
             return Ok(_petService.GetFilteredPets(filter));
         }
 

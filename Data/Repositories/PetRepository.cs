@@ -31,15 +31,12 @@ namespace Infrastructure.Data
             var pet2Add = _pac.Pets.Add(pet).Entity;
             _pac.SaveChanges();
 
-            _pac.Attach(pet).State = EntityState.Added;
-            _pac.SaveChanges();
             return pet2Add;
         }
         public Pet ReadByID(int id)
             
         {
-
-            //return _pac.Pets.FirstOrDefault(c => c.ID == id);
+           
             var changeTracker = _pac.ChangeTracker.Entries<Owner>();
             var petById = _pac.Pets.Where(p => p.ID == id).Include(p => p.Owner).FirstOrDefault();
             return petById;
