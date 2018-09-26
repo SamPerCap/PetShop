@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Infrastructure.Static.Data.Repositories;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using PetShop.Core.ApplicationService;
 using PetShop.Core.ApplicationService.Services;
 using PetShop.Core.DomainService;
+using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Infrastructure;
+using PetShop.Core.Entity;
+using System;
 
 namespace CompanyName.PetShop.RestApi
 {
@@ -21,7 +19,7 @@ namespace CompanyName.PetShop.RestApi
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            FakeDB.DefaultData();
+ 
         }
 
         public IConfiguration Configuration { get; }
@@ -29,11 +27,18 @@ namespace CompanyName.PetShop.RestApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddDbContext<PetAppContext>(opt => opt.UseInMemoryDatabase("TrialDB"));
+            services.AddDbContext<PetAppContext>(opt => opt.UseSqlite("Data Source=PetShop.db"));
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddScoped<IPetShopService, PetShopService>();
-            services.AddScoped<IPetShopRepository, PetShopRepository>();
+            services.AddScoped<IPetShopRepository, PetRepository>();
             services.AddScoped<IOwnerService, OwnerService>();
             services.AddScoped<IOwnerRepository, OwnerRepository>();
+            services.AddMvc().AddJsonOptions(options =>
+            {
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,8 +47,16 @@ namespace CompanyName.PetShop.RestApi
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                using (var scope = app.ApplicationServices.CreateScope()) {
+                    var ctx = scope.ServiceProvider.GetService<PetAppContext>();
+                    DBInitializer.SeedDB(ctx);
+                   
+                }
             }
-
+            else
+            {
+                app.UseHsts();
+            }
             app.UseMvc();
         }
     }

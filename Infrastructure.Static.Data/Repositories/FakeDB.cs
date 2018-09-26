@@ -33,17 +33,6 @@ namespace Infrastructure.Static.Data.Repositories
                 LastName = "Sorn",
                 PhoneNumber = 392541094,
             };
-            var pet1 = new Pet()
-            {
-                ID = petID++,
-                Birthday = new DateTime(2005, 4, 6),
-                Owner = owner1,
-                SoldDate = new DateTime(2006, 4, 6),
-                Color = "White",
-                Race = "Yorkshire",
-                Type = "Dog",
-                Price = 4450
-            };
             var pet2 = new Pet()
             {
                 ID = petID++,
@@ -90,7 +79,7 @@ namespace Infrastructure.Static.Data.Repositories
             };
             Pets = new List<Pet>
             {
-                pet1,pet2,pet3,pet4,pet5
+                pet2,pet3,pet4,pet5
             };
             Owners = new List<Owner>
             {

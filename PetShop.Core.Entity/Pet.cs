@@ -14,6 +14,6 @@ namespace PetShop.Core.Entity
         public int Price { get; set; }
         public DateTime SoldDate { get; set; }
         public Owner Owner { get; set; }
-
+        public IEnumerable<PetOwner> PetOwnerList { get; set; }
     }
 }

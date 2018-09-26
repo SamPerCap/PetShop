@@ -20,21 +20,20 @@ namespace CompanyName.PetShop.RestApi.Controllers
 
         // GET api/pets
         [HttpGet]
-        public ActionResult<IEnumerable<Pet>> Get()
+        public ActionResult<IEnumerable<Pet>> Get([FromQuery] Filter filter)
         {
-
-            return _petService.GetAllPets();
+            return Ok(_petService.GetFilteredPets(filter));
         }
 
         // GET api/pets/5
         [HttpGet("{id}")]
-        public ActionResult<IEnumerable<Pet>> Get(int id)
+        public ActionResult<Pet> Get(int id)
         {
             if (id < 1)
             {
                 return BadRequest("ID must be greater than 0");
             }
-            return _petService.FindPetByID(id);
+            return _petService.FindPetByIDIncludeOwner(id);
         }
 
         // POST api/pets

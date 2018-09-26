@@ -10,10 +10,12 @@ namespace PetShop.Core.ApplicationService.Services
     public class PetShopService : IPetShopService
     {
         readonly IPetShopRepository _petShopRepo;
+        readonly IOwnerRepository _ownerRepo;
 
-        public PetShopService(IPetShopRepository petShopRepository)
+        public PetShopService(IPetShopRepository petShopRepository, IOwnerRepository ownerRepository)
         {
             _petShopRepo = petShopRepository;
+            _ownerRepo = ownerRepository;
         }
 
         public Pet CreatePet(Pet pet)
@@ -84,6 +86,16 @@ namespace PetShop.Core.ApplicationService.Services
             pet.Price = petUpdated.Price;
             pet.SoldDate = petUpdated.SoldDate;
             return pet;
+        }
+        public Pet FindPetByIDIncludeOwner(int id)
+        {
+            var pet = _petShopRepo.ReadByIDIncludeCustomer(id);
+            return pet;
+        }
+
+        public List<Pet> GetFilteredPets(Filter filter)
+        {
+            return _petShopRepo.ReadPets(filter).ToList();
         }
     }
 }
