@@ -11,11 +11,21 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Infrastructure;
 using PetShop.Core.Entity;
 using System;
+using CompanyName.PetShop.RestApi.Helpers;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace CompanyName.PetShop.RestApi
 {
     public class Startup
     {
+        public Startup(IConfiguration configuration, IHostingEnvironment env)
+        {
+            _conf = configuration;
+            _env = env;
+            JwtSecurityKey.SetSecret("A secret that needs to be at least 16 characters long");
+        } 
+
         private IConfiguration _conf { get; }
 
         private IHostingEnvironment _env { get; set; }
@@ -34,6 +44,24 @@ namespace CompanyName.PetShop.RestApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Add JWT based authentication
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateAudience = false,
+                    //ValidAudience = "TodoApiClient",
+                    ValidateIssuer = false,
+                    //ValidIssuer = "TodoApi",
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = JwtSecurityKey.Key,
+                    ValidateLifetime = true, //validate the expiration and not before values in the token
+                    ClockSkew = TimeSpan.FromMinutes(5) //5 minute tolerance for the expiration date
+                };
+            });
+
+            services.AddCors();
+
             if (_env.IsDevelopment())
             {
                 services.AddDbContext<PetAppContext>(
@@ -45,9 +73,6 @@ namespace CompanyName.PetShop.RestApi
                     opt => opt
                         .UseSqlServer(_conf.GetConnectionString("defaultConnection")));
             }
-            //services.AddDbContext<PetAppContext>(opt => opt.UseSqlite("Data Source=PetShop.db"));
-
-
             services.AddScoped<IPetShopService, PetShopService>();
             services.AddScoped<IPetShopRepository, PetRepository>();
 
@@ -66,25 +91,25 @@ namespace CompanyName.PetShop.RestApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseDeveloperExceptionPage();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                using (var scope = app.ApplicationServices.CreateScope())
-                {
-                    var ctx = scope.ServiceProvider.GetService<PetAppContext>();
-                    DBInitializer.SeedDB(ctx);
-
-                }
             }
             else
             {
-                using (var scope = app.ApplicationServices.CreateScope())
-                {
-                    var ctx = scope.ServiceProvider.GetService<PetAppContext>();
-                    ctx.Database.EnsureCreated();
-                }
                 app.UseHsts();
             }
+
+            app.UseHttpsRedirection();
+
+            // Enable CORS (must precede app.UseMvc()):
+            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
+            // Use authentication
+            app.UseAuthentication();
+
             app.UseMvc();
         }
     }

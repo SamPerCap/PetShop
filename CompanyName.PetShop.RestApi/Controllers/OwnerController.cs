@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PetShop.Core.ApplicationService;
 using PetShop.Core.Entity;
@@ -19,6 +20,7 @@ namespace CompanyName.PetShop.RestApi.Controllers
         }
 
         // GET api/owners
+        [Authorize]
         [HttpGet]
         public ActionResult<IEnumerable<Owner>> Get()
         {
