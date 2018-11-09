@@ -6,6 +6,7 @@
     <OutputType>Exe</OutputType>
     <StartupObject />
     <Configurations>Debug;Release;Developer</Configurations>
+    <UserSecretsId>5af3da1d-53fd-4a36-af19-94d7f8cd351b</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

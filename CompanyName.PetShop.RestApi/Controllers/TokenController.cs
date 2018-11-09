@@ -8,39 +8,43 @@ using CompanyName.PetShop.RestApi.Data;
 using CompanyName.PetShop.RestApi.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using PetShop.Core.DomainService;
 using PetShop.Core.Entity;
 
 namespace CompanyName.PetShop.RestApi.Controllers
 {
     [Route("/token")]
+    //[Route("api/[controller]")]
+    //[ApiController]
+
     public class TokenController : Controller
     {
-        private readonly IRepository<Owner> repository;
+        private readonly IOwnerRepository repository;
 
-        public TokenController(IRepository<Owner> repos)
+        public TokenController(IOwnerRepository repos)
         {
             repository = repos;
         }
 
-
+        // POST api/token
         [HttpPost]
         public IActionResult Login([FromBody]LoginInputModel model)
         {
-            var user = repository.GetAll().FirstOrDefault(u => u.FirstName == model.Username);
+            var owner = repository.ReadOwners().FirstOrDefault(u => u.FirstName == model.Username);
 
             // check if username exists
-            if (user == null)
+            if (owner == null)
                 return Unauthorized();
 
             // check if password is correct
-            if (!VerifyPasswordHash(model.Password, user.PasswordHash, user.PasswordSalt))
+            if (!VerifyPasswordHash(model.Password, owner.PasswordHash, owner.PasswordSalt))
                 return Unauthorized();
 
             // Authentication successful
             return Ok(new
             {
-                username = user.FirstName,
-                token = GenerateToken(user)
+                username = owner.FirstName,
+                token = GenerateToken(owner)
             });
         }
 

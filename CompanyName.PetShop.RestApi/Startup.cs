@@ -14,6 +14,8 @@ using System;
 using CompanyName.PetShop.RestApi.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using CompanyName.PetShop.RestApi.Data;
+using TodoApi.Data;
 
 namespace CompanyName.PetShop.RestApi
 {
@@ -78,6 +80,12 @@ namespace CompanyName.PetShop.RestApi
 
             services.AddScoped<IOwnerService, OwnerService>();
             services.AddScoped<IOwnerRepository, OwnerRepository>();
+
+            services.AddScoped<ICustomerService, CustomerService>();
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
+
+            services.AddScoped<IRepository<TodoItem>, TodoItemRepository>();
+           // services.AddScoped<IRepository<Owner>, OwnerRepository>();
 
             services.AddMvc().AddJsonOptions(options =>
             {
