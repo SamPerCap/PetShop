@@ -26,14 +26,6 @@ namespace CompanyName.PetShop.RestApi
             _conf = configuration;
             _env = env;
             JwtSecurityKey.SetSecret("A secret that needs to be at least 16 characters long");
-        } 
-
-        private IConfiguration _conf { get; }
-
-        private IHostingEnvironment _env { get; set; }
-
-        public Startup(IHostingEnvironment env)
-        {
             _env = env;
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
@@ -41,7 +33,11 @@ namespace CompanyName.PetShop.RestApi
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             _conf = builder.Build();
-        }
+        } 
+
+        private IConfiguration _conf { get; }
+
+        private IHostingEnvironment _env { get; set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
