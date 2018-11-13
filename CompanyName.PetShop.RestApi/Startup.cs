@@ -101,6 +101,13 @@ namespace CompanyName.PetShop.RestApi
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                // Initialize the database
+                using (var scope = app.ApplicationServices.CreateScope())
+                {
+                    var services = scope.ServiceProvider;
+                    var dbContext = services.GetService<PetAppContext>();
+                    DBInitializer.SeedDB(dbContext);
+                }
             }
             else
             {
