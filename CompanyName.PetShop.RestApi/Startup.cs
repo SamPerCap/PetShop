@@ -59,7 +59,18 @@ namespace CompanyName.PetShop.RestApi
                 };
             });
 
-            services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin",
+                    builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader()
+                        .AllowAnyMethod());
+                options.AddPolicy("AllowSpecificOrigin",
+                    builder => builder.WithOrigins("https://angularonfirebasepetshop.firebaseapp.com").AllowAnyHeader()
+                        .AllowAnyMethod());
+                options.AddPolicy("AllowSpecificOrigin",
+                    builder => builder.WithOrigins("https://localhost:4200").AllowAnyHeader()
+                      .AllowAnyMethod());
+            });
 
             if (_env.IsDevelopment())
             {
