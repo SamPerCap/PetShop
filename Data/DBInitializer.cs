@@ -13,8 +13,8 @@ namespace Infrastructure.Data
         public static void SeedDB(PetAppContext ctx)
         {
 
-           // ctx.Database.EnsureDeleted();
-            //ctx.Database.EnsureCreated();
+            ctx.Database.EnsureDeleted();
+            ctx.Database.EnsureCreated();
             
 
             List<TodoItem> items = new List<TodoItem>
