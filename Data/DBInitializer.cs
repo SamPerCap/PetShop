@@ -13,7 +13,7 @@ namespace Infrastructure.Data
         public static void SeedDB(PetAppContext ctx)
         {
 
-            //ctx.Database.EnsureDeleted();
+            ctx.Database.EnsureDeleted();
             ctx.Database.EnsureCreated();
 
             if (ctx.TodoItems.Any())
@@ -64,9 +64,9 @@ namespace Infrastructure.Data
             var customer1 = ctx.Customers.Add(new Customer()
             {
                 ID = 1,
-                FirstName = "Someone",
-                LastName = "LastSomeone",
-                Address = "Somewhere",
+                FirstName = "SamuelLDB",
+                LastName = "CaparrosLDB",
+                Address = "1234LDB",
                 PasswordHash = passwordHashSam,
                 PasswordSalt = passwordSaltSam,
                 IsAdmin = true
