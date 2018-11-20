@@ -13,7 +13,7 @@ namespace Infrastructure.Data
         public static void SeedDB(PetAppContext ctx)
         {
 
-            //ctx.Database.EnsureDeleted();
+            ctx.Database.EnsureDeleted();
             ctx.Database.EnsureCreated();
             
 
@@ -76,7 +76,7 @@ namespace Infrastructure.Data
             using (var hmac = new System.Security.Cryptography.HMACSHA512())
             {
                 passwordSalt = hmac.Key;
-                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+                passwordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
             }
         }
 
