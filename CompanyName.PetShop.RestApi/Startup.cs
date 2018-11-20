@@ -71,6 +71,9 @@ namespace CompanyName.PetShop.RestApi
                 options.AddPolicy("AllowSpecificOrigin",
                     builder => builder.WithOrigins("http://localhost:55344").AllowAnyHeader()
                       .AllowAnyMethod());
+                options.AddPolicy("AllowSpecificOrigin",
+                    builder => builder.WithOrigins("https://samu1667petshop-2018.azurewebsites.net").AllowAnyHeader()
+                      .AllowAnyMethod());
             });
 
             if (_env.IsDevelopment())
