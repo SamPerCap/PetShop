@@ -14,7 +14,7 @@ namespace Infrastructure.Data
         {
 
            // ctx.Database.EnsureDeleted();
-            ctx.Database.EnsureCreated();
+            //ctx.Database.EnsureCreated();
             
 
             List<TodoItem> items = new List<TodoItem>
@@ -71,6 +71,7 @@ namespace Infrastructure.Data
             ctx.TodoItems.AddRange(items);
             ctx.SaveChanges();
         }
+
         private static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
             using (var hmac = new System.Security.Cryptography.HMACSHA512())

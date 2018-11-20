@@ -121,15 +121,22 @@ namespace CompanyName.PetShop.RestApi
                 {
                     var services = scope.ServiceProvider;
                     var dbContext = services.GetService<PetAppContext>();
+                    //Ensure Delete is on. Watch out
                     DBInitializer.SeedDB(dbContext);
                 }
             }
             else
             {
+                using (var scope = app.ApplicationServices.CreateScope())
+                {
+                    var ctx = scope.ServiceProvider.GetService<PetAppContext>();
+                    ctx.Database.EnsureCreated();
+                    DBInitializer.SeedDB(ctx);
+                }
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+             app.UseHttpsRedirection();
 
             // Enable CORS (must precede app.UseMvc()):
             app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
