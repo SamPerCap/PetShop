@@ -38,11 +38,13 @@ namespace PetShop.Core.ApplicationService.Services
 
         public Customer UpdateCustomer(Customer customerUpdate)
         {
-            var customer = _customRepo.ReadCustomerById(customerUpdate.ID);
-            customer.Address = customerUpdate.Address;
-            customer.FirstName = customerUpdate.FirstName;
-            customer.LastName = customerUpdate.LastName;
-            return customer;
+            var customerFromDB = _customRepo.ReadCustomerById(customerUpdate.ID);
+            if (customerFromDB == null) return null;
+
+            customerFromDB.FirstName = customerUpdate.FirstName;
+            customerFromDB.LastName = customerUpdate.LastName;
+            customerFromDB.Address = customerUpdate.Address;
+            return customerFromDB;
         }
     }
 }
