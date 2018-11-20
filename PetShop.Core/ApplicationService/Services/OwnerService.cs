@@ -21,11 +21,9 @@ namespace PetShop.Core.ApplicationService.Services
             return _ownerRepo.CreateOwner(owner);
         }
 
-        public List<Owner> FindOwnerByID(int id)
+        public Owner FindOwnerByID(int id)
         {
-            var list = _ownerRepo.ReadOwners();
-            var IDList = list.Where(owner => owner.ID.Equals(id));
-            return IDList.ToList();
+            return _ownerRepo.ReadOwnerByID(id);
         }
 
         public List<Owner> GetAllOwner()

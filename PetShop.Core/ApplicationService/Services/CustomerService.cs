@@ -21,11 +21,9 @@ namespace PetShop.Core.ApplicationService.Services
             return _customRepo.CreateCustomer(customer);
         }
 
-        public List<Customer> FindCustomerByID(int id)
+        public Customer FindCustomerByID(int id)
         {
-            var list = _customRepo.ReadCustomers();
-            var IDList = list.Where(cust => cust.ID.Equals(id));
-            return IDList.ToList();
+            return _customRepo.ReadCustomerById(id);
         }
 
         public List<Customer> GetAllCustomers()

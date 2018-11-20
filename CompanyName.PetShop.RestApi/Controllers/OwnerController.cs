@@ -30,7 +30,7 @@ namespace CompanyName.PetShop.RestApi.Controllers
 
         // GET api/owners/5
         [HttpGet("{id}")]
-        public ActionResult<IEnumerable<Owner>> Get(int id)
+        public ActionResult<Owner> Get(int id)
         {
             if (id < 1)
             {

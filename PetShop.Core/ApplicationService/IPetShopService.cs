@@ -13,7 +13,7 @@ namespace PetShop.Core.ApplicationService
         List<Pet> GetCheapestPets();
         Pet FindPetByIDIncludeOwner(int id);
 
-        List<Pet> FindPetByID(int id);
+        Pet FindPetByID(int id);
         Pet UpdatePet(Pet petUpdated);
         Pet CreatePet(Pet pet);
         Pet NewPet(string type, string race, string color, DateTime birthday, int price, DateTime soldDate, Owner owner);
