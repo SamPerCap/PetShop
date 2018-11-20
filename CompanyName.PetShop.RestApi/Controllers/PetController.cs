@@ -37,7 +37,7 @@ namespace CompanyName.PetShop.RestApi.Controllers
             {
                 return BadRequest("ID must be greater than 0");
             }
-            return _petService.FindPetByIDIncludeOwner(id);
+            return _petService.FindPetByID(id);
         }
 
         // POST api/pets

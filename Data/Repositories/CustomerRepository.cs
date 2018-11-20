@@ -43,10 +43,13 @@ namespace Infrastructure.Data
 
         public Customer UpdateCustomer(Customer customerUpdate)
         {
-            _pac.Attach(customerUpdate).State = EntityState.Modified;
-            _pac.SaveChanges();
+            var customerFromDB = ReadCustomerById(customerUpdate.ID);
+            if (customerFromDB == null) return null;
 
-            return customerUpdate;
+            customerFromDB.FirstName = customerUpdate.FirstName;
+            customerFromDB.LastName = customerUpdate.LastName;
+            customerFromDB.Address = customerUpdate.Address;
+            return customerFromDB;
         }
     }
 }
