@@ -23,11 +23,9 @@ namespace PetShop.Core.ApplicationService.Services
             return _petShopRepo.CreatePet(pet);
         }
 
-        public List<Pet> FindPetByID(int id)
+        public Pet FindPetByID(int id)
         {
-            var list = _petShopRepo.ReadPets();
-            var IDList = list.Where(pet => pet.ID.Equals(id));
-                return IDList.ToList();
+            return _petShopRepo.ReadByID(id);
         }
 
         public List<Pet> GetAllPets()
@@ -89,8 +87,12 @@ namespace PetShop.Core.ApplicationService.Services
         }
         public Pet FindPetByIDIncludeOwner(int id)
         {
-            var pet = _petShopRepo.ReadByIDIncludeCustomer(id);
-            return pet;
+            throw new NotImplementedException();
+            //var pet = _petShopRepo.ReadByID(id);
+            //pet.Owner = _ownerRepo.ReadOwners()
+            //    .Where(owner => owner.Pet. == pet.ID)
+            //    .ToList();
+            //return pet;
         }
 
         public List<Pet> GetFilteredPets(Filter filter)
