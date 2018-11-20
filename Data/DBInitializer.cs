@@ -59,7 +59,7 @@ namespace Infrastructure.Data
 
             var customer1 = ctx.Customers.Add(new Customer()
             {
-                ID = 1,
+               // ID = 1,
                 FirstName = "SamuelLDB",
                 LastName = "CaparrosLDB",
                 Address = "1234LDB",
