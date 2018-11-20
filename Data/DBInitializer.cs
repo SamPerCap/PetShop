@@ -65,8 +65,7 @@ namespace Infrastructure.Data
                 Address = "1234LDB",
                 PasswordHash = passwordHashSam,
                 PasswordSalt = passwordSaltSam,
-                IsAdmin = true,
-                Username = "Samuel"
+                IsAdmin = true
             }).Entity;
 
             ctx.TodoItems.AddRange(items);
