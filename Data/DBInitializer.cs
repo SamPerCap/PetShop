@@ -40,9 +40,6 @@ namespace Infrastructure.Data
                 Address = "MyHeart<3",
                 PhoneNumber = 060606060,
                 Email = "l@gmail.com",
-                PasswordHash = passwordHashSusi,
-                PasswordSalt = passwordSaltSusi,
-                IsAdmin = true
             }).Entity;
             var owner2 = ctx.Owners.Add(new Owner()
             {
@@ -51,9 +48,6 @@ namespace Infrastructure.Data
                 Address = "Doom",
                 PhoneNumber = 123456789,
                 Email = "daaaaamn@gmail.com",
-                PasswordHash = passwordHashSam,
-                PasswordSalt = passwordSaltSam,
-                IsAdmin = true
             }).Entity;
 
             var pet1 = ctx.Pets.Add(new Pet()
@@ -72,7 +66,10 @@ namespace Infrastructure.Data
                 ID = 1,
                 FirstName = "Someone",
                 LastName = "LastSomeone",
-                Address = "Somewhere"
+                Address = "Somewhere",
+                PasswordHash = passwordHashSam,
+                PasswordSalt = passwordSaltSam,
+                IsAdmin = true
             }).Entity;
 
             ctx.TodoItems.AddRange(items);

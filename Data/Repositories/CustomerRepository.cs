@@ -49,6 +49,7 @@ namespace Infrastructure.Data
             customerFromDB.FirstName = customerUpdate.FirstName;
             customerFromDB.LastName = customerUpdate.LastName;
             customerFromDB.Address = customerUpdate.Address;
+            
             return customerFromDB;
         }
     }

@@ -19,9 +19,9 @@ namespace CompanyName.PetShop.RestApi.Controllers
 
     public class TokenController : Controller
     {
-        private readonly IOwnerRepository repository;
+        private readonly ICustomerRepository repository;
 
-        public TokenController(IOwnerRepository repos)
+        public TokenController(ICustomerRepository repos)
         {
             repository = repos;
         }
@@ -30,21 +30,21 @@ namespace CompanyName.PetShop.RestApi.Controllers
         [HttpPost]
         public IActionResult Login([FromBody]LoginInputModel model)
         {
-            var owner = repository.ReadOwners().FirstOrDefault(u => u.FirstName == model.Username);
+            var customer = repository.ReadCustomers().FirstOrDefault(u => u.FirstName == model.Username);
 
             // check if username exists
-            if (owner == null)
+            if (customer == null)
                 return Unauthorized();
 
             // check if password is correct
-            if (!VerifyPasswordHash(model.Password, owner.PasswordHash, owner.PasswordSalt))
+            if (!VerifyPasswordHash(model.Password, customer.PasswordHash, customer.PasswordSalt))
                 return Unauthorized();
 
             // Authentication successful
             return Ok(new
             {
-                username = owner.FirstName,
-                token = GenerateToken(owner)
+                username = customer.FirstName,
+                token = GenerateToken(customer)
             });
         }
 
@@ -68,14 +68,14 @@ namespace CompanyName.PetShop.RestApi.Controllers
         }
 
         // This method generates and returns a JWT token for a user.
-        private string GenerateToken(Owner owner)
+        private string GenerateToken(Customer cust)
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, owner.FirstName)
+                new Claim(ClaimTypes.Name, cust.FirstName)
             };
 
-            if (owner.IsAdmin)
+            if (cust.IsAdmin)
                 claims.Add(new Claim(ClaimTypes.Role, "Administrator"));
 
             var token = new JwtSecurityToken(

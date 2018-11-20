@@ -69,7 +69,7 @@ namespace CompanyName.PetShop.RestApi
                     builder => builder.WithOrigins("https://angularonfirebasepetshop.firebaseapp.com").AllowAnyHeader()
                         .AllowAnyMethod());
                 options.AddPolicy("AllowSpecificOrigin",
-                    builder => builder.WithOrigins("https://localhost:4200").AllowAnyHeader()
+                    builder => builder.WithOrigins("http://localhost:55344").AllowAnyHeader()
                       .AllowAnyMethod());
             });
 
