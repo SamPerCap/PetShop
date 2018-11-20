@@ -15,11 +15,7 @@ namespace Infrastructure.Data
 
             ctx.Database.EnsureDeleted();
             ctx.Database.EnsureCreated();
-
-            if (ctx.TodoItems.Any())
-            {
-                return;   // DB has been seeded
-            }
+            
 
             List<TodoItem> items = new List<TodoItem>
             {
