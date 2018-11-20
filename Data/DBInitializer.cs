@@ -13,7 +13,7 @@ namespace Infrastructure.Data
         public static void SeedDB(PetAppContext ctx)
         {
 
-            ctx.Database.EnsureDeleted();
+            //ctx.Database.EnsureDeleted();
             ctx.Database.EnsureCreated();
             
 
@@ -65,7 +65,8 @@ namespace Infrastructure.Data
                 Address = "1234LDB",
                 PasswordHash = passwordHashSam,
                 PasswordSalt = passwordSaltSam,
-                IsAdmin = true
+                IsAdmin = true,
+                Username = "Samuel"
             }).Entity;
 
             ctx.TodoItems.AddRange(items);
