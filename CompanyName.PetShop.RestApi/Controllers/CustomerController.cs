@@ -53,11 +53,11 @@ namespace CompanyName.PetShop.RestApi.Controllers
         [HttpPut("{id}")]
         public ActionResult<Customer> Put(int id, [FromBody] Customer customer)
         {
-            var entity = _customService.UpdateCustomer(customer);
-            entity.FirstName = customer.FirstName;
-            entity.Address = customer.Address;
-            entity.LastName = customer.LastName;
-            return entity;
+            if (id < 1 || id != customer.ID)
+            {
+                return BadRequest("ID is not correct");
+            }
+            return Ok(_customService.UpdateCustomer(customer));
         }
         // DELETE api/customer/5
         [HttpDelete("{id}")]
