@@ -68,7 +68,7 @@ namespace Infrastructure.Data
                 IsAdmin = true
             }).Entity;
 
-            ctx.TodoItems.AddRange(items);
+            ctx.Customers.AddRange(customer1);
             ctx.SaveChanges();
         }
 
