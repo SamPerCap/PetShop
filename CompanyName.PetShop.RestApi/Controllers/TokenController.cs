@@ -42,7 +42,7 @@ namespace CompanyName.PetShop.RestApi.Controllers
 
             // Authentication successful
             return Ok(new
-            {
+            {   
                 username = customer.FirstName,
                 token = GenerateToken(customer)
             });

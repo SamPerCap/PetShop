@@ -31,14 +31,14 @@ namespace CompanyName.PetShop.RestApi
             _conf = configuration;
             _env = env;
             JwtSecurityKey.SetSecret("A secret that needs to be at least 16 characters long");
-            
+
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             _conf = builder.Build();
-        } 
+        }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -58,7 +58,7 @@ namespace CompanyName.PetShop.RestApi
                     ClockSkew = TimeSpan.FromMinutes(5) //5 minute tolerance for the expiration date
                 };
             });
-            
+
             if (_env.IsDevelopment())
             {
                 services.AddDbContext<PetAppContext>(
@@ -124,6 +124,10 @@ namespace CompanyName.PetShop.RestApi
             }
             else
             {
+                using (var scope = app.ApplicationServices.CreateScope(){
+                    var ctx = scope.ServiceProvider.GetService<PetAppContext>();
+                    ctx.Database.EnsureCreated();
+                }
                 app.UseHsts();
             }
 
