@@ -67,6 +67,16 @@ namespace Infrastructure.Data
                 PasswordSalt = passwordSaltSam,
                 IsAdmin = true
             }).Entity;
+            var customer2 = ctx.Customers.Add(new Customer()
+            {
+                // ID = 1,
+                FirstName = "Susana",
+                LastName = "Caparros",
+                Address = "Malaga",
+                PasswordHash = passwordHashSusi,
+                PasswordSalt = passwordSaltSusi,
+                IsAdmin = true
+            }).Entity;
 
             ctx.Customers.AddRange(customer1);
             ctx.SaveChanges();
