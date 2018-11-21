@@ -124,11 +124,6 @@ namespace CompanyName.PetShop.RestApi
             }
             else
             {
-                using (var scope = app.ApplicationServices.CreateScope())
-                {
-                    var ctx = scope.ServiceProvider.GetService<PetAppContext>();
-                    ctx.Database.EnsureCreated();
-                }
                 app.UseHsts();
             }
 
