@@ -58,30 +58,13 @@ namespace CompanyName.PetShop.RestApi
                     ClockSkew = TimeSpan.FromMinutes(5) //5 minute tolerance for the expiration date
                 };
             });
-
-            services.AddCors(options =>
-            {
-                options.AddPolicy("AllowSpecificOrigin",
-                    builder => 
-                    builder.WithOrigins("http://localhost:4200").AllowAnyHeader()
-                        .AllowAnyMethod());
-                options.AddPolicy("AllowSpecificOrigin",
-                    builder => builder.WithOrigins("https://angularonfirebasepetshop.firebaseapp.com").AllowAnyHeader()
-                        .AllowAnyMethod());
-                options.AddPolicy("AllowSpecificOrigin",
-                    builder => builder.WithOrigins("http://localhost:55344").AllowAnyHeader()
-                      .AllowAnyMethod());
-                options.AddPolicy("AllowSpecificOrigin",
-                    builder => builder.WithOrigins("https://samu1667petshop-2018.azurewebsites.net").AllowAnyHeader()
-                      .AllowAnyMethod());
-            });
-
+            
             if (_env.IsDevelopment())
             {
                 services.AddDbContext<PetAppContext>(
                     opt => opt.UseSqlite("Data Source=petShopApp.db"));
             }
-            else if (_env.IsProduction())
+            else /*if (_env.IsProduction())*/
             {
                 services.AddDbContext<PetAppContext>(
                     opt => opt
@@ -97,8 +80,23 @@ namespace CompanyName.PetShop.RestApi
             services.AddScoped<ICustomerRepository, CustomerRepository>();
 
             services.AddScoped<IRepository<TodoItem>, TodoItemRepository>();
-           // services.AddScoped<IRepository<Owner>, OwnerRepository>();
-
+            // services.AddScoped<IRepository<Owner>, OwnerRepository>();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin",
+                    builder =>
+                    builder.WithOrigins("http://localhost:4200").AllowAnyHeader()
+                        .AllowAnyMethod());
+                options.AddPolicy("AllowSpecificOrigin",
+                    builder => builder.WithOrigins("https://angularonfirebasepetshop.firebaseapp.com").AllowAnyHeader()
+                        .AllowAnyMethod());
+                options.AddPolicy("AllowSpecificOrigin",
+                    builder => builder.WithOrigins("http://localhost:55344").AllowAnyHeader()
+                      .AllowAnyMethod());
+                options.AddPolicy("AllowSpecificOrigin",
+                    builder => builder.WithOrigins("https://samu1667petshop-2018.azurewebsites.net").AllowAnyHeader()
+                      .AllowAnyMethod());
+            });
             services.AddMvc().AddJsonOptions(options =>
             {
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
@@ -111,7 +109,6 @@ namespace CompanyName.PetShop.RestApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseDeveloperExceptionPage();
 
             if (env.IsDevelopment())
             {
