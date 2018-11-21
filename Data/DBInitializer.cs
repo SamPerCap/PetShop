@@ -13,7 +13,7 @@ namespace Infrastructure.Data
         public static void SeedDB(PetAppContext ctx)
         {
 
-            ctx.Database.EnsureDeleted();
+            //ctx.Database.EnsureDeleted();
             ctx.Database.EnsureCreated();
             
 
